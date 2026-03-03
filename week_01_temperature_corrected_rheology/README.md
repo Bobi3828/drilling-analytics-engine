@@ -71,3 +71,12 @@ a) Sensitivity analysis
 b) Visualization of viscosity vs temperature
 
 c) Engineering interpretation of hydraulic impact
+
+
+Initial Validation Results
+
+The Arrhenius correction model shows exponential viscosity reduction with increasing temperature.
+
+For a 35 cP surface viscosity at 25°C, downhole viscosity at 120°C reduces significantly depending on activation energy assumptions.
+
+This confirms the necessity of temperature-adjusted rheological modeling in HPHT wells to avoid overestimation of hydraulic pressure losses.
