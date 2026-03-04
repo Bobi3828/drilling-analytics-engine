@@ -37,6 +37,12 @@ def correct_viscosity(surface_viscosity, T_surface_c, T_downhole_c, activation_e
     
     T_surface_k = celsius_to_kelvin(T_surface_c)
     T_downhole_k = celsius_to_kelvin(T_downhole_c)
+    
+    if T_downhole_c < -273.15 or T_surface_c < -273.15:
+        raise ValueError("Temperature below absolute zero is invalid.")
+    
+    if surface_viscosity <= 0:
+        raise ValueError("Surface viscosity must be positive.")
 
     corrected_viscosity = surface_viscosity * np.exp(
         (activation_energy / R) * (1 / T_downhole_k - 1 / T_surface_k)

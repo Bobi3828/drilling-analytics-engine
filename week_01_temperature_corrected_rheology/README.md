@@ -80,3 +80,14 @@ The Arrhenius correction model shows exponential viscosity reduction with increa
 For a 35 cP surface viscosity at 25°C, downhole viscosity at 120°C reduces significantly depending on activation energy assumptions.
 
 This confirms the necessity of temperature-adjusted rheological modeling in HPHT wells to avoid overestimation of hydraulic pressure losses.
+
+
+Activation Energy Sensitivity
+
+The model demonstrates strong dependence on activation energy (Ea).
+
+Higher activation energy results in steeper viscosity degradation with temperature.
+
+This highlights the need for laboratory calibration of Ea for specific drilling fluid systems.
+
+Uncalibrated Ea values may introduce significant hydraulic modeling error in HPHT wells.
