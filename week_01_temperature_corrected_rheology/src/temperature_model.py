@@ -50,6 +50,12 @@ def correct_viscosity(surface_viscosity, T_surface_c, T_downhole_c, activation_e
 
     return corrected_viscosity
 
+def laminar_pressure_loss(viscosity_cp, flow_rate_m3s, pipe_length_m, pipe_diameter_m):
+    viscosity_pa_s = viscosity_cp / 1000  # convert cP to Pa·s
+
+    pressure_loss = ((128 * viscosity_pa_s * pipe_length_m * flow_rate_m3s) /(np.pi * pipe_diameter_m**4))
+    return pressure_loss
+
 
 if __name__ == "__main__":
     # Test case parameters
@@ -58,12 +64,7 @@ if __name__ == "__main__":
     T_downhole = 120            # °C
     activation_energy = 25000   # J/mol (example value)
 
-    corrected = correct_viscosity(
-        surface_viscosity,
-        T_surface,
-        T_downhole,
-        activation_energy
-    )
+    corrected = correct_viscosity(surface_viscosity, T_surface, T_downhole, activation_energy)
 
     print(f"Surface viscosity: {surface_viscosity} cP")
     print(f"Corrected viscosity at {T_downhole}°C: {corrected:.2f} cP")
@@ -71,3 +72,29 @@ if __name__ == "__main__":
     # Sanity check
     assert corrected < surface_viscosity, \
         "Viscosity should decrease with increasing temperature"
+    
+
+    
+    #This is simplified laminar flow physics. We’re not modeling turbulence yet.
+    # Estimate laminar pressure loss using simplified Hagen–Poiseuille relationship.
+
+    #Parameters:
+    # viscosity_cp (float): viscosity in cP, flow_rate_m3s (float): volumetric flow rate (m³/s), pipe_length_m (float): pipe length (m), pipe_diameter_m (float): pipe diameter (m)
+    # Returns:
+    # float: pressure loss (Pa)
+
+    
+    
+
+    # Hydraulic impact example
+
+    flow_rate = 0.02        # m3/s (example)
+    pipe_length = 1000      # m
+    pipe_diameter = 0.1     # m
+
+    surface_pressure = laminar_pressure_loss(surface_viscosity, flow_rate, pipe_length, pipe_diameter)
+
+    downhole_pressure = laminar_pressure_loss(corrected, flow_rate, pipe_length, pipe_diameter)
+
+    print(f"Surface pressure loss: {surface_pressure:.2f} Pa")
+    print(f"Downhole pressure loss: {downhole_pressure:.2f} Pa")
