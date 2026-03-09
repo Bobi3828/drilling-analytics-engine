@@ -98,3 +98,30 @@ if __name__ == "__main__":
 
     print(f"Surface pressure loss: {surface_pressure:.2f} Pa")
     print(f"Downhole pressure loss: {downhole_pressure:.2f} Pa")
+
+
+def temperature_profile(surface_temp_c, bottom_temp_c, depth_m, steps=50):
+    """
+    Generate a linear temperature profile along the well depth.
+
+    Parameters
+    ----------
+    surface_temp_c : float
+        Surface temperature (°C)
+    bottom_temp_c : float
+        Bottomhole temperature (°C)
+    depth_m : float
+        Total well depth
+    steps : int
+        Number of depth points
+
+    Returns
+    -------
+    depths : array
+    temperatures : array
+    """
+
+    depths = np.linspace(0, depth_m, steps)
+    temperatures = np.linspace(surface_temp_c, bottom_temp_c, steps)
+
+    return depths, temperatures

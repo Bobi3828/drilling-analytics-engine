@@ -23,3 +23,29 @@ df = pd.DataFrame(results)
 df.to_csv("../results/temperature_viscosity_table.csv", index=False)
 
 print("Simulation complete. Results saved.")
+
+
+
+
+from temperature_model import correct_viscosity, temperature_profile
+
+# Well parameters
+surface_temp = 25
+bottom_temp = 150
+depth = 3000  # meters
+
+depths, temps = temperature_profile(surface_temp, bottom_temp, depth)
+
+well_results = []
+
+for d, T in zip(depths, temps):
+
+    visc = correct_viscosity(surface_viscosity, surface_temp, T, activation_energy)
+
+    well_results.append({"depth_m": d, "temperature_C": T, "viscosity_cp": visc})
+
+well_df = pd.DataFrame(well_results)
+
+well_df.to_csv("../results/wellbore_viscosity_profile.csv", index=False)
+
+print("Wellbore viscosity profile generated.")
