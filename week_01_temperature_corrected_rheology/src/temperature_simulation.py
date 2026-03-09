@@ -49,3 +49,33 @@ well_df = pd.DataFrame(well_results)
 well_df.to_csv("../results/wellbore_viscosity_profile.csv", index=False)
 
 print("Wellbore viscosity profile generated.")
+
+
+
+from temperature_model import laminar_pressure_loss
+
+# Flow parameters
+flow_rate = 0.02
+pipe_diameter = 0.1
+
+pressure_losses = []
+
+for i in range(len(well_df)):
+
+    if i == 0:
+        segment_length = 0
+    else:
+        segment_length = well_df["depth_m"][i] - well_df["depth_m"][i-1]
+
+    viscosity = well_df["viscosity_cp"][i]
+
+    pressure = laminar_pressure_loss(viscosity, flow_rate, segment_length, pipe_diameter)
+
+    pressure_losses.append(pressure)
+
+well_df["segment_pressure_loss_pa"] = pressure_losses
+well_df["cumulative_pressure_loss_pa"] = well_df["segment_pressure_loss_pa"].cumsum()
+
+well_df.to_csv("../results/wellbore_hydraulics_profile.csv", index=False)
+
+print("Wellbore hydraulics simulation complete.")
