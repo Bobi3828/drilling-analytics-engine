@@ -56,3 +56,38 @@ def annular_pressure_loss(mu_p, yield_stress, flow_rate, dh, dp):
     pressure_gradient = ((32 * mu_p * velocity) / (hydraulic_diameter**2) + (4 * yield_stress / hydraulic_diameter))
 
     return pressure_gradient
+    
+def calculate_ecd(mud_weight_ppg, pressure_gradient_pa_m, tvd_m):     # Extend Hydraulics Module
+    
+    """
+    Calculate Equivalent Circulating Density.
+
+    Parameters
+    ----------
+    mud_weight_ppg : float
+        Static mud weight (ppg)
+
+    pressure_gradient_pa_m : float
+        Pressure loss per meter (Pa/m)
+
+    tvd_m : float
+        True vertical depth (m)
+
+    Returns
+    -------
+    ecd : float
+        Equivalent circulating density (ppg)
+    """
+
+    # Convert Pa/m to total pressure loss (Pa)
+    delta_p_pa = pressure_gradient_pa_m * tvd_m
+
+    # Convert Pa to psi
+    delta_p_psi = delta_p_pa * 0.000145038
+
+    # Convert TVD to ft
+    tvd_ft = tvd_m * 3.28084
+
+    ecd = mud_weight_ppg + (delta_p_psi / (0.052 * tvd_ft))
+
+    return ecd

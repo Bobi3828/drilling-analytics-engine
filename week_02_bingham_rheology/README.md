@@ -90,3 +90,35 @@ Your system now has a real engineering workflow:
                      Downhole rheology curves
 
 That is the beginning of a real drilling hydraulics engine.
+
+## A computational workflow.
+Your project can now simulate:
+
+                              Viscometer data
+                                     ↓
+                                  PV / YP
+                                     ↓
+                              Bingham rheology
+                                     ↓
+                         Temperature correction
+                                     ↓
+                             Downhole rheology
+                                     ↓
+                           Annular pressure loss
+
+This is now a real drilling hydraulics chain.
+
+
+
+## Objective: Compute ECD from annular pressure loss.
+The simplified relationship is:
+
+ECD = MW + (ΔP / (0.052 × TVD))
+
+Where:
+
+                           MW  = mud weight (ppg)
+                           ΔP  = annular pressure loss (psi)
+                           TVD = true vertical depth (ft)
+
+Right now your hydraulics model gives pressure gradient in Pa/m, so we convert units first. Engineering is mostly unit conversion disguised as intelligence.
