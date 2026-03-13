@@ -63,3 +63,50 @@ def temperature_adjusted_K(K0, Ea, T_surface, T_downhole):
                                                                 #otherwise the value of k will increase, not depicting actual drilling situation
 
     return K_T
+
+# Apparent Viscosity Function
+
+import numpy as np
+
+
+def apparent_viscosity_hb(yield_stress, K, n, shear_rate):
+
+    """
+    Calculate apparent viscosity for Herschel–Bulkley fluid
+    """
+
+    shear_stress = yield_stress + K * (shear_rate ** n)
+
+    mu_app = shear_stress / shear_rate
+
+    return mu_app
+
+
+# Annular Shear Rate
+
+def annular_shear_rate(flow_rate, hole_diameter, pipe_diameter):
+
+    """
+    Estimate annular shear rate
+    """
+
+    annular_area = np.pi * (hole_diameter**2 - pipe_diameter**2) / 4
+
+    velocity = flow_rate / annular_area
+
+    shear_rate = 8 * velocity / (hole_diameter - pipe_diameter)
+
+    return shear_rate
+
+
+# Pressure Gradient Function
+
+def pressure_gradient_hb(mu_app, velocity, hydraulic_diameter):
+
+    """
+    Simplified laminar pressure gradient
+    """
+
+    dp_dz = 32 * mu_app * velocity / (hydraulic_diameter**2)
+
+    return dp_dz

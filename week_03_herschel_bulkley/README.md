@@ -12,3 +12,4 @@ Where:
 τy = yield stress
 K  = consistency index
 n  = flow behaviour index
+
