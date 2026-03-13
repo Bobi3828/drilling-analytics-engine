@@ -1,142 +1,196 @@
-Week 1: Temperature-Corrected Rheology Model
+# Temperature-Corrected Drilling Fluid Rheology Model
 
-Problem
+## Overview
 
-Drilling hydraulic calculations often rely on surface-measured rheological properties.
+Hydraulic calculations in drilling operations are typically based on surface-measured drilling fluid rheology. In high-temperature wells, however, viscosity degrades significantly with temperature. Using uncorrected surface viscosity in hydraulic models introduces substantial error in:
 
-In high-temperature wells, viscosity degrades significantly with increasing temperature. Using uncorrected surface viscosity for downhole ECD and pressure loss calculations introduces modeling error.
+a) Equivalent Circulating Density (ECD)
 
-This project builds a physics-based temperature correction engine using an Arrhenius-type viscosity relationship.
+b) Pump pressure prediction
 
+c) Annular pressure loss estimation
 
-Engineering Objective
+This project develops a physics-based temperature correction model for drilling fluid viscosity using an Arrhenius-type relationship. The goal is to demonstrate how data science and physical modeling can improve hydraulic predictions in drilling engineering, particularly in high-pressure high-temperature (HPHT) wells.
 
-
-a) Quantify viscosity reduction with temperature
-
-b) Model surface-to-downhole correction
-
-c) Provide structured, reusable Python implementation
-
-d) Lay foundation for improved ECD prediction systems
+This project is part of a broader portfolio exploring data-driven solutions for drilling fluid and wellbore hydraulics problems in the oil and gas industry.
 
 
-Model Basis
+# Engineering Objective
+
+The project aims to:
+
+a) Quantify viscosity degradation with temperature.
+
+b) Build a surface-to-downhole viscosity correction model.
+
+c) Implement the model in structured, reusable Python code.
+
+d) Demonstrate the hydraulic impact of temperature-dependent rheology.
+
+Ultimately, the work forms a building block toward data-driven ECD prediction systems for drilling operations.
 
 
-Arrhenius-type approximation:
+# Physical Model
 
-μ(T) = μ₀ · exp[(Ea/R)(1/T − 1/T₀)]
+Drilling fluid viscosity is modeled using an Arrhenius-type temperature relationship:
+
+corrected_viscosity, μ(T) = surface_viscosity, μ₀ * np.exp((activation_energy,Ea / R) * (1 / T_downhole_k, T - 1 / T_surface_k, T₀ )
 
 Where:
 
-μ₀ = surface viscosity
+                                     μ(T) — viscosity at downhole temperature
 
-T₀ = surface temperature (Kelvin)
+                                     μ₀ — surface viscosity
 
-T = downhole temperature (Kelvin)
+                                     T₀ — surface temperature (Kelvin)
 
-Ea = activation energy
+                                     T — downhole temperature (Kelvin)
 
-R = universal gas constant
+                                     Eₐ — activation energy
+
+                                     R — universal gas constant
+
+This relationship approximates the thermal degradation behavior of drilling fluid viscosity.
 
 
-Assumptions
+# Project Architecture
+
+The project follows a modular structure common in production data science systems.
+
+project/
+│
+├── src/
+│   ├── temperature_model.py
+│   │   Physics-based viscosity correction engine
+│   │
+│   └── temperature_simulation.py
+│       Simulation framework for temperature sweep experiments
+│
+├── notebooks/
+│   └── temperature_analysis.ipynb
+│       Data analysis and visualization
+│
+└── data/
+    Simulation outputs (CSV datasets)
+
+The project separates:
+
+a) Physics modeling
+
+b) Simulation execution
+
+c) Data analysis & visualization
+
+This structure supports scalability for more advanced drilling hydraulics modeling.
 
 
-a) Single-phase fluid behavior
+# Simulation Experiments
+
+## Temperature Sweep Study
+
+A temperature sweep simulation from 25°C to 180°C was performed to quantify viscosity degradation.
+
+The results confirm the expected exponential decrease in viscosity with increasing temperature, consistent with Arrhenius-type behavior.
+
+Simulation outputs are exported as structured CSV datasets to enable reproducible analysis and visualization workflows.
+
+
+## Activation Energy Sensitivity Analysis
+
+The model shows strong sensitivity to activation energy (Ea).
+
+Higher activation energy values produce steeper viscosity reduction curves, highlighting the importance of laboratory calibration for specific drilling fluid systems.
+
+Without proper calibration, hydraulic predictions in HPHT wells can contain significant error.
+
+
+## Wellbore Temperature Profile Simulation
+
+To simulate downhole conditions, a linear geothermal gradient was applied from surface to bottomhole depth.
+
+This allows estimation of viscosity variation along the wellbore, demonstrating how drilling fluid rheology evolves during circulation.
+
+The results show a progressive viscosity reduction with depth, reinforcing the need for temperature-corrected rheology models in deep wells.
+
+## Hydraulic Impact Demonstration
+
+Using the temperature-corrected viscosity profile, pressure losses along the wellbore were calculated.
+
+For demonstration purposes, the model uses a simplified laminar flow relationship derived from the Hagen–Poiseuille equation.
+
+The results show that:
+
+a) Surface viscosity overestimates pressure losses
+
+b) Temperature-corrected viscosity produces lower hydraulic pressure predictions
+
+This highlights the importance of incorporating temperature effects into ECD and pump pressure calculations.
+
+
+# Model Assumptions
+
+a) Single-phase drilling fluid
 
 b) Constant activation energy
 
-c) No shear-rate dependency in this phase
+c) No shear-rate dependency
 
-d) Laboratory calibration required for field accuracy
+d) Temperature as the primary viscosity driver
 
+These assumptions simplify the model for the initial development stage.
+ 
 
-Limitations
+## Current Limitations
 
+This first version does not yet include:
 
-a) Does not yet integrate Power Law K and n adjustments
+a) Power Law K and n rheology adjustments
 
-b) Does not account for pressure effects
+b) Pressure effects on viscosity
 
-c) No field calibration included in Week 1
+c) Field or laboratory calibration datasets
 
-
-Next Steps
-
-
-a) Sensitivity analysis
-
-b) Visualization of viscosity vs temperature
-
-c) Engineering interpretation of hydraulic impact
+d) Non-Newtonian drilling fluid behavior
 
 
-Initial Validation Results
+## Future Development
+
+Planned extensions include:
+
+a) Bingham Plastic and Herschel–Bulkley hydraulic models
+
+b) Integration of Power Law rheology parameters
+
+c) Pressure-temperature coupled viscosity models
+
+d) Field data calibration
+
+e) Machine learning models for ECD prediction and hydraulic optimization
 
 
-The Arrhenius correction model shows exponential viscosity reduction with increasing temperature.
+### Why This Project Matters
 
-For a 35 cP surface viscosity at 25°C, downhole viscosity at 120°C reduces significantly depending on activation energy assumptions.
+Drilling hydraulic modeling remains heavily dependent on simplified assumptions and surface measurements.
 
-This confirms the necessity of temperature-adjusted rheological modeling in HPHT wells to avoid overestimation of hydraulic pressure losses.
+By combining physical models with data science workflows, this project demonstrates how modern analytics can improve:
 
+a) Drilling hydraulics prediction
 
-Activation Energy Sensitivity
+b) ECD management
 
+c) Wellbore stability analysis
 
-The model demonstrates strong dependence on activation energy (Ea).
-
-Higher activation energy results in steeper viscosity degradation with temperature.
-
-This highlights the need for laboratory calibration of Ea for specific drilling fluid systems.
-
-Uncalibrated Ea values may introduce significant hydraulic modeling error in HPHT wells.
+d) Drilling efficiency in HPHT environments
 
 
-Hydraulic Impact Analysis
 
+**Author**
 
-Temperature-corrected viscosity significantly reduces predicted pressure loss at elevated temperatures.
+Obua Innocent
 
-Using uncorrected surface viscosity overestimates hydraulic pressure losses, particularly in HPHT wells.
+Drilling & Completion Fluids Engineer
+Data Science Practitioner
 
-This demonstrates the importance of temperature-adjusted rheology in ECD and pump pressure prediction.
+Experience in drilling fluid engineering, wellsite operations, and data-driven engineering modeling for the oil and gas industry.
 
-
-Hydraulic Model Limitation
-
-
-The current pressure loss model assumes Newtonian laminar flow using the Hagen–Poiseuille relationship.
-
-This simplification is used only to demonstrate the hydraulic impact of temperature-corrected viscosity.
-
-Future development will replace this with Bingham Plastic and Herschel–Bulkley hydraulic correlations commonly used in drilling hydraulics modeling.
-
-
-### Simulation Dataset
-
-A temperature sweep simulation was performed from 25°C to 180°C to quantify viscosity degradation. Results are exported as a structured CSV dataset, enabling downstream analysis and visualization workflows.
-
-# Why This Structure Matters
-
-Right now your project has three layers:
-
-a) Physics engine: src/temperature_model.py
-
-b) Simulation runner: src/temperature_simulation.py
-
-c) Analysis & visualization: notebooks/temperature_analysis.ipynb
-
-### Wellbore Temperature Profile Simulation
-
-A linear geothermal gradient was applied from surface to bottomhole conditions to simulate viscosity variation along the wellbore.
-Results show progressive viscosity reduction with increasing depth, demonstrating the hydraulic implications of temperature-dependent rheology in deep wells.
-
-### Wellbore Pressure Loss Simulation
-
-Using the temperature-adjusted viscosity profile, pressure losses were calculated along the wellbore using a simplified laminar flow model.
-Results demonstrate how temperature-induced viscosity reduction affects the cumulative hydraulic pressure profile.
-
-This provides a foundation for future integration of Bingham Plastic and Herschel–Bulkley hydraulic correlations used in drilling engineering.
+This repository is part of a larger portfolio focused on applying data science to drilling engineering challenges.
