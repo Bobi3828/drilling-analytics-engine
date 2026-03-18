@@ -13,3 +13,46 @@ Where:
 K  = consistency index
 n  = flow behaviour index
 
+
+Up to now you computed ECD at one depth. Real wells don’t behave like that. Temperature, rheology, and pressure losses all evolve with depth.
+
+So we now simulate the full chain which finally gives you something that looks like a real hydraulics profile.:
+depth
+ ↓
+temperature profile
+ ↓
+K(T)
+ ↓
+HB rheology
+ ↓
+apparent viscosity
+ ↓
+pressure gradient
+ ↓
+ECD profile
+
+Plot ECD vs Depth: Your curve should now increase gradually with depth, not remain a straight line like earlier.
+
+That happens because:
+
+temperature ↑
+↓
+K ↓
+↓
+viscosity ↓
+↓
+pressure loss ↓
+
+But hydrostatic pressure dominates, so ECD still increases slightly.
+
+What You Just Built
+
+Your simulator now models a dynamic wellbore:
+
+depth
+temperature
+rheology change
+hydraulics change
+ECD change
+
+Which is exactly the physics chain used in drilling hydraulics programs.
