@@ -56,3 +56,12 @@ hydraulics change
 ECD change
 
 Which is exactly the physics chain used in drilling hydraulics programs.
+
+Now you should see two different curves.
+
+Usually:
+
+Bingham → higher ECD
+HB → lower ECD
+
+Because Bingham overestimates viscosity at high shear rates.
