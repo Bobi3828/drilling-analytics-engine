@@ -65,3 +65,30 @@ Bingham → higher ECD
 HB → lower ECD
 
 Because Bingham overestimates viscosity at high shear rates.
+
+
+Real rigs do not drill at one constant pump rate like your simulator currently assumes. Pumps change all the time:
+
+increasing flow to improve hole cleaning
+
+reducing flow during connections
+
+ramping flow during pressure tests
+
+surge events during pump startup
+
+All of those change annular velocity → shear rate → viscosity → pressure loss → ECD.
+
+
+
+Now you should see something realistic:
+
+higher pump rate → higher shear rate
+
+higher shear rate → lower viscosity for shear-thinning fluids
+
+but velocity increase → higher friction losses
+
+So ECD usually still increases with pump rate.
+
+That tension between shear thinning vs velocity friction is a classic hydraulics tradeoff.
