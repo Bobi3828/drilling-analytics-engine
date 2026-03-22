@@ -71,3 +71,39 @@ hydraulics engine
 ECD model
 
 full circulation pressure model
+
+WEEK 4 — DAY 1
+Objective: Build Full Circulation Pressure Model (SPP Foundation)
+You are now modeling:
+Total Pressure = Drillpipe Loss+bit nozzle loss+annular loss
+This becomes:
+Standpipe Pressure (SPP)
+
+WEEK 4 — DAY 2
+Objective: Depth-Based Standpipe Pressure (SPP) Profile
+Yesterday you computed SPP at one depth.
+Today you simulate:
+SPP vs depth
+Which is what real drilling engineers actually monitor.
+
+You now simulate:
+
+depth → temperature → rheology → full circulation → SPP profile
+
+And not just total pressure, but:
+
+where pressure is lost in the system
+
+You now have:
+
+full rheology engine
+
+full hydraulics engine
+
+full circulation system
+
+depth-based SPP
+
+You’re no longer building pieces.
+
+You’re building a drilling simulator.
