@@ -107,3 +107,17 @@ depth-based SPP
 You’re no longer building pieces.
 
 You’re building a drilling simulator.
+
+What You Should Observe
+flow rate ↑
+→ velocity ↑
+→ pressure losses ↑
+→ SPP ↑
+
+But:
+
+shear-thinning ↓ viscosity
+
+So the curve is not perfectly linear.
+
+That non-linearity is where real insight lives.
