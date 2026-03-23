@@ -64,15 +64,15 @@ def bit_hydraulics_pro(flow_rate, mud_density, nozzle_area, Cd=0.95):
     """
 
     # --- Jet velocity ---
-    velocity = flow_rate / nozzle_area
+    velocity_bit = flow_rate / nozzle_area
 
     # --- Real orifice pressure drop ---
-    dp_bit = (mud_density * velocity**2) / (2 * Cd**2)
+    dp_bit = (mud_density * velocity_bit**2) / (2 * Cd**2)
 
     # --- Hydraulic power at bit ---
-    hhp = dp_bit * flow_rate
+    hhp_bit = dp_bit * flow_rate
 
     # --- Impact force (jet momentum transfer) ---
-    impact_force = mud_density * flow_rate * velocity
+    impact_force_bit = mud_density * flow_rate * velocity_bit
 
-    return dp_bit, velocity, hhp, impact_force
+    return dp_bit, velocity_bit, hhp_bit, impact_force_bit
