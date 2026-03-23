@@ -76,3 +76,59 @@ def bit_hydraulics_pro(flow_rate, mud_density, nozzle_area, Cd=0.95):
     impact_force_bit = mud_density * flow_rate * velocity_bit
 
     return dp_bit, velocity_bit, hhp_bit, impact_force_bit
+
+
+
+def calculate_ecd(mud_density, cumulative_dp_annulus, depth):
+    """
+    Calculate ECD using cumulative annular pressure loss.
+
+    Parameters:
+    mud_density (kg/m3)
+    cumulative_dp_annulus (Pa)
+    depth (m)
+    
+    Returns:
+    ecd (ppg)
+
+    # Calculate ECD for all other depths
+    # Using your original logic:
+    # (dp_annulus/depth) = Pa/m
+    # / 6894.76 = psi/m
+    # / 3.281 = psi/ft (since 1m = 3.281ft)
+    """
+
+    # Base mud weight
+    mud_weight_ppg = mud_density / 119.826
+    # 1. Handle the surface (depth = 0)
+    if depth <= 0:
+        return mud_weight_ppg
+    
+    # Unit conversions
+    depth_ft = depth * 3.281
+    dp_psi = cumulative_dp_annulus / 6894.76
+
+    # ECD formula
+    ecd = mud_weight_ppg + dp_psi / (0.052 * depth_ft)
+
+    return ecd
+
+def reynolds_number(rho, velocity, hydraulic_diameter, mu):
+
+    Re = (rho * velocity * hydraulic_diameter) / mu
+
+    return Re
+
+
+def friction_multiplier(Re):
+    """
+    Simple correction for non-laminar effects
+    """
+
+    if Re < 2100:
+        return 1.0
+    elif Re < 4000:
+        return 1.5
+    else:
+        return 2.0
+    
