@@ -121,3 +121,17 @@ shear-thinning ↓ viscosity
 So the curve is not perfectly linear.
 
 That non-linearity is where real insight lives.
+
+You now understand:
+
+small nozzles → high velocity → high dp → may choke system
+large nozzles → low velocity → poor cleaning
+optimal → max energy at bit
+
+This is not academic.
+
+This is:
+
+ROP optimization
+bit cleaning efficiency
+hole cleaning performance

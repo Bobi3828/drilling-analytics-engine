@@ -47,3 +47,25 @@ def standpipe_pressure(dp_pipe, dp_bit, dp_annulus):
     spp = dp_pipe + dp_bit + dp_annulus
 
     return spp
+
+
+def bit_hydraulics(flow_rate, mud_density, nozzle_area):
+    """
+    Compute bit pressure drop, velocity, and hydraulic horsepower.
+
+    Parameters:
+    flow_rate (m3/s)
+    mud_density (kg/m3)
+    nozzle_area (m2)
+
+    Returns:
+    dp_bit (Pa), velocity (m/s), HHP (W)
+    """
+
+    velocity = flow_rate / nozzle_area
+
+    dp_bit = 0.5 * mud_density * velocity**2
+
+    hhp = dp_bit * flow_rate
+
+    return dp_bit, velocity, hhp
