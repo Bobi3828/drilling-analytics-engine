@@ -135,3 +135,28 @@ This is:
 ROP optimization
 bit cleaning efficiency
 hole cleaning performance
+Where Most People Get This Wrong
+
+They think:
+
+higher pressure = better drilling
+
+Wrong.
+
+What matters is:
+
+energy delivered at the bit (HHP)
+
+Objective: Bit Nozzle Optimization (Hydraulic Efficiency)
+
+Right now your bit model is… let’s be honest… too polite:
+
+dp_bit = 0.5 * rho * v^2
+
+That’s fine for a classroom. Not fine for a rig.
+
+Today you will:
+
+1. Model nozzle velocity properly
+2. Compute hydraulic horsepower (HHP)
+3. Optimize nozzle area for max efficiency

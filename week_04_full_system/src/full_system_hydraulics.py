@@ -49,23 +49,30 @@ def standpipe_pressure(dp_pipe, dp_bit, dp_annulus):
     return spp
 
 
-def bit_hydraulics(flow_rate, mud_density, nozzle_area):
+def bit_hydraulics_pro(flow_rate, mud_density, nozzle_area, Cd=0.95):
     """
-    Compute bit pressure drop, velocity, and hydraulic horsepower.
+    Rig-representative bit hydraulics model.
 
     Parameters:
     flow_rate (m3/s)
     mud_density (kg/m3)
-    nozzle_area (m2)
+    nozzle_area (m2) → total nozzle flow area
+    Cd (float): discharge coefficient (0.95–0.98)
 
     Returns:
-    dp_bit (Pa), velocity (m/s), HHP (W)
+    dp_bit (Pa), velocity (m/s), hhp (W), impact_force (N)
     """
 
+    # --- Jet velocity ---
     velocity = flow_rate / nozzle_area
 
-    dp_bit = 0.5 * mud_density * velocity**2
+    # --- Real orifice pressure drop ---
+    dp_bit = (mud_density * velocity**2) / (2 * Cd**2)
 
+    # --- Hydraulic power at bit ---
     hhp = dp_bit * flow_rate
 
-    return dp_bit, velocity, hhp
+    # --- Impact force (jet momentum transfer) ---
+    impact_force = mud_density * flow_rate * velocity
+
+    return dp_bit, velocity, hhp, impact_force
